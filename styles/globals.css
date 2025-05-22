@@ -1,170 +1,334 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* 按鈕樣式 */
-.btn {
-  padding: 0.5rem 1rem;
-  background-color: #f97316; /* orange-500 */
-  color: white;
-  border-radius: 0.5rem;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-  font-weight: 500;
+/* 全域變數 */
+:root {
+  --primary-gradient: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  --secondary-gradient: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  --mesh-gradient: linear-gradient(135deg, #f97316 0%, #ea580c 25%, #0ea5e9 50%, #8b5cf6 75%, #f97316 100%);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.18);
 }
 
-.btn:hover {
-  background-color: #ea580c; /* orange-600 */
-}
-
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.btn:disabled:hover {
-  background-color: #f97316;
-}
-
-.btn-secondary {
-  padding: 0.5rem 1rem;
-  background-color: #fcd34d; /* yellow-300 作為輔助色 */
-  color: #78350f;
-  border-radius: 0.5rem;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-  font-weight: 500;
-}
-
-.btn-secondary:hover {
-  background-color: #fbbf24;
-}
-
-/* 輸入框樣式 */
-.input-field {
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-  padding: 0.5rem 0.75rem;
-  outline: none;
-  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  width: 100%;
-}
-
-.input-field:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-/* 卡片樣式 */
-.card {
-  background-color: #fff7ed; /* orange-50 */
-  border-radius: 0.75rem;
-  box-shadow: 0 2px 4px rgba(249, 115, 22, 0.1);
-  padding: 1.5rem;
-  border: 1px solid #fed7aa; /* orange-200 */
-}
-
-/* 載入動畫 */
-.loading-spinner {
-  display: inline-block;
-  width: 1rem;
-  height: 1rem;
-  border: 2px solid #d1d5db;
-  border-top-color: #2563eb;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* 內容輸出樣式 */
-.content-output {
-  background-color: #fff7ed; /* orange-50 */
-  padding: 1rem;
-  border-radius: 0.75rem;
-  border: 1px solid #fed7aa; /* orange-200 */
-  white-space: pre-wrap;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  color: #7c2d12; /* orange-900 */
-  max-height: 300px;
-  overflow-y: auto;
-}
-
-/* H2 內容區塊 */
-.h2-section {
-  margin-top: 1.5rem;
-  padding: 1rem;
-  border: 1px solid #fed7aa;
-  border-radius: 0.75rem;
-  background-color: #fff7ed;
-}
-
-/* 段落標題 */
-.section-header {
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  color: #c2410c; /* orange-700 */
-}
-
-/* 響應式設計 */
-@media (max-width: 768px) {
-  .card {
-    padding: 1rem;
-  }
-  
-  .content-output {
-    font-size: 0.8rem;
-    max-height: 200px;
-  }
-  
-  .btn {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.875rem;
-  }
-}
-
-/* 全局樣式重置 */
+/* 全域樣式重置與優化 */
 * {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f9fafb;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 50%, #e5e7eb 100%);
+  min-height: 100vh;
+  color: #374151;
+  line-height: 1.6;
 }
 
-/* 美化滾動條 */
+/* 現代化按鈕樣式 */
+.btn {
+  @apply px-6 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary-200 shadow-soft;
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn:hover {
+  box-shadow: 0 8px 25px rgba(249, 115, 22, 0.4);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn:disabled:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+/* 輔助按鈕 */
+.btn-secondary {
+  @apply px-6 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-secondary-200 shadow-soft;
+  background: var(--secondary-gradient);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4);
+}
+
+/* 輕量按鈕 */
+.btn-ghost {
+  @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 border border-gray-200 bg-white hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-20;
+  color: #6b7280;
+}
+
+/* 現代化輸入框 */
+.input-field {
+  @apply w-full px-4 py-3 rounded-xl border border-gray-200 bg-white transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-primary-200 focus:border-primary-500 shadow-soft;
+  font-size: 16px; /* 防止 iOS 縮放 */
+}
+
+.input-field::placeholder {
+  color: #9ca3af;
+}
+
+.input-field:focus {
+  box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1), 0 2px 15px -3px rgba(0, 0, 0, 0.07);
+}
+
+/* 玻璃型態卡片 */
+.card {
+  @apply rounded-2xl p-6 backdrop-blur-sm border border-white/20 shadow-soft-lg transition-all duration-300 hover:shadow-glow;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+/* 現代化卡片 */
+.card-modern {
+  @apply bg-white rounded-2xl shadow-soft border border-gray-100 p-6 transition-all duration-300 hover:shadow-soft-lg hover:-translate-y-1;
+}
+
+/* 漸變卡片 */
+.card-gradient {
+  @apply rounded-2xl p-6 shadow-soft-lg transition-all duration-300;
+  background: var(--primary-gradient);
+  color: white;
+}
+
+.card-gradient:hover {
+  box-shadow: 0 15px 35px rgba(249, 115, 22, 0.3);
+  transform: translateY(-3px);
+}
+
+/* 載入動畫優化 */
+.loading-spinner {
+  @apply inline-block w-5 h-5 border-2 border-gray-200 border-t-primary-500 rounded-full animate-spin;
+}
+
+.loading-pulse {
+  @apply inline-block w-2 h-2 bg-primary-500 rounded-full mx-1 animate-bounce;
+}
+
+.loading-pulse:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.loading-pulse:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+/* 內容輸出區域 */
+.content-output {
+  @apply bg-gradient-to-br from-primary-50 to-orange-50 p-4 rounded-xl border border-primary-200 text-primary-800 text-sm leading-relaxed max-h-80 overflow-y-auto shadow-soft;
+  white-space: pre-wrap;
+}
+
+/* H2 內容區塊 */
+.h2-section {
+  @apply mt-6 p-4 border border-primary-200 rounded-xl bg-gradient-to-br from-primary-50 to-orange-50 shadow-soft;
+}
+
+/* 區塊標題 */
+.section-header {
+  @apply text-lg font-semibold mb-3 text-primary-700 flex items-center;
+}
+
+.section-header::before {
+  content: '';
+  @apply w-1 h-5 bg-primary-500 rounded-full mr-3;
+}
+
+/* 現代化標籤 */
+.badge {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800;
+}
+
+.badge-secondary {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-secondary-100 text-secondary-800;
+}
+
+.badge-success {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-success-100 text-success-800;
+}
+
+/* 漸變文字 */
+.text-gradient {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 響應式設計優化 */
+@media (max-width: 768px) {
+  .card, .card-modern, .card-gradient {
+    @apply p-4;
+  }
+  
+  .content-output {
+    @apply text-xs max-h-60;
+  }
+  
+  .btn {
+    @apply px-4 py-2 text-sm;
+  }
+  
+  .input-field {
+    @apply py-2.5;
+  }
+}
+
+/* 滾動條美化 */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 3px;
+  @apply bg-gray-100 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 3px;
+  @apply bg-gray-300 rounded-full hover:bg-gray-400;
+  transition: background-color 0.2s;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  @apply bg-gray-400;
+}
+
+/* 選取文字樣式 */
+::selection {
+  background: rgba(249, 115, 22, 0.2);
+  color: #c2410c;
+}
+
+::-moz-selection {
+  background: rgba(249, 115, 22, 0.2);
+  color: #c2410c;
+}
+
+/* 焦點可見性改善 */
+.focus-visible:focus {
+  @apply outline-none ring-4 ring-primary-200;
+}
+
+/* 動畫類別 */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+.animate-bounce-subtle {
+  animation: bounceSubtle 2s infinite;
+}
+
+/* 背景網格圖案 */
+.bg-grid {
+  background-image: 
+    linear-gradient(rgba(249, 115, 22, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(249, 115, 22, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* 浮動效果 */
+.floating {
+  animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* 波浪動畫 */
+.wave {
+  animation: wave 2s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  75% { transform: rotate(-5deg); }
+}
+
+/* 打字機效果 */
+.typewriter {
+  overflow: hidden;
+  border-right: 2px solid #f97316;
+  white-space: nowrap;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: #f97316; }
+}
+
+/* 暗色模式支援 */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #374151 100%);
+    color: #f3f4f6;
+  }
+  
+  .card {
+    background: rgba(31, 41, 55, 0.7);
+    border: 1px solid rgba(75, 85, 99, 0.3);
+  }
+  
+  .input-field {
+    @apply bg-gray-800 border-gray-600 text-white;
+  }
+  
+  .input-field:focus {
+    @apply border-primary-400;
+  }
 }
