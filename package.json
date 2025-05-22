@@ -1,0 +1,21 @@
+{
+  "name": "seo-content-generator",
+  "version": "1.0.0",
+  "description": "A tool for generating SEO-friendly content using AI.",
+  "main": "seoGenerator.js",
+  "scripts": {
+    "build": "tsc seoGenerator.ts",
+    "start": "node seoGenerator.js",
+    "dev": "npm run build && npm run start"
+  },
+  "keywords": ["seo", "content", "ai", "typescript", "openrouter"],
+  "author": "Your Name Here",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.6.12",
+    "typescript": "^5.x.x"
+  }
+}
