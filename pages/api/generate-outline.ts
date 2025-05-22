@@ -6,14 +6,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ error: '只允許 POST 請求' });
   }
 
-  const { keywords } = req.body;
+  const { keywords, title } = req.body;
   
   if (!keywords) {
     return res.status(400).json({ error: '缺少關鍵字參數' });
   }
 
   try {
-    const result = await generateOutline(keywords);
+    const result = await generateOutline(keywords, title);
     res.status(200).json({ result });
   } catch (error) {
     console.error('生成大綱時發生錯誤:', error);
