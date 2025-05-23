@@ -7,8 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "build-lib": "tsc seoGenerator.ts --outDir lib --target es2020 --module commonjs"
+    "lint": "next lint"
   },
   "keywords": [
     "seo",
@@ -22,14 +21,12 @@
   "license": "ISC",
   "dependencies": {
     "next": "^14.0.0",
-    "node-fetch": "^3.3.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^7.0.2",
     "@types/node": "^20.0.0",
-    "@types/node-fetch": "^2.6.12",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "autoprefixer": "^10.4.16",

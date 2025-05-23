@@ -1,6 +1,7 @@
 // lib/seoGenerator.ts - 正確的 OpenRouter 配置
 
-import fetch from 'node-fetch';
+// 移除這行，因為現代 Node.js 已經內建 fetch
+// import fetch from 'node-fetch';
 
 // OpenRouter API 配置 - 只使用環境變數（安全實踐）
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
